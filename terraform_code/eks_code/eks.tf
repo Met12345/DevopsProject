@@ -5,6 +5,7 @@ module "eks" {
   cluster_name                   = local.name
   cluster_endpoint_public_access = true
 
+  # Cluster Add-ons
   cluster_addons = {
     coredns = {
       most_recent = true
@@ -17,9 +18,11 @@ module "eks" {
     }
   }
 
-  vpc_id                   = module.vpc.vpc_id
-  subnet_ids               = module.vpc.private_subnets
+  # VPC and Subnets
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
 
+  # Managed Node Group
   eks_managed_node_groups = {
     panda-node = {
       min_size     = 2
